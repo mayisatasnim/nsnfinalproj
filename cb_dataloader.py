@@ -4,6 +4,8 @@ from torch.utils.data import Dataset
 from PIL import Image
 
 
+onlyenglish = False
+
 ENGLISH_REGEX = re.compile(r"^[A-Za-z0-9\s.,;:'\"!?()\-\–—]+$")
 
 def is_english_only(text):
@@ -30,9 +32,10 @@ class CampbellDataset(Dataset):
             with open(txt_path, "r", encoding="utf-8") as f:
                 text = f.read().strip()
 
-            # Always enforce English-only
-            if not is_english_only(text):
-                continue
+
+            if onlyenglish:
+                if not is_english_only(text):
+                    continue
 
             self.samples.append(sample_id)
 
@@ -65,3 +68,4 @@ class CampbellDataset(Dataset):
         }
 
              
+
