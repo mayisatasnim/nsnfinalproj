@@ -3,7 +3,7 @@ import random
 from PIL import Image, ImageDraw, ImageFilter
 from cb_dataloader import CampbellDataset
 
-num_images = 5
+
 
 def add_perspective_shift (img):
     angle = random.uniform(-4, 4)
@@ -16,8 +16,9 @@ def add_perspective_shift (img):
 def modify():
     ds = CampbellDataset("Dataset/GT-pairs")
     output_dir = "Dataset/PerspectiveGT-Pairs"
-
     os.makedirs(output_dir, exist_ok = True)
+
+    num_images = len(ds)
 
     print(f"Total dataset size: {len(ds)}")
     print(f"Processing first {num_images} images")

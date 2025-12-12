@@ -1,0 +1,55 @@
+Model loaded on device: cuda
+Torch CUDA available: True
+CUDA device: NVIDIA A100-SXM4-80GB
+
+Dataset: GT-pairs
+[GT-pairs] English-only samples: 190
+Samples: 190
+Average CER (clean): 0.010050449783562562
+Average WER (clean): 0.04903968838179363
+Average CER (FGSM):  0.010548854590305272
+Average WER (FGSM):  0.051255455071244536
+Average CER (PGD):   0.013785147762568782
+Average WER (PGD):   0.07958480116374854
+
+Dataset: BlurGT-Pairs
+[BlurGT-Pairs] English-only samples: 190
+Samples: 190
+Average CER (clean): 0.01697240816694629
+Average WER (clean): 0.0848285924601714
+Average CER (FGSM):  0.03673525551776237
+Average WER (FGSM):  0.16871330423962
+Average CER (PGD):   0.0457400997135171
+Average WER (PGD):   0.2348978945031576
+
+Dataset: iso_noise_folder
+[iso_noise_folder] English-only samples: 190
+Samples: 190
+Average CER (clean): 0.009457583243376548
+Average WER (clean): 0.050960968855705696
+Average CER (FGSM):  0.011096172427127637
+Average WER (FGSM):  0.05291331475542
+Average CER (PGD):   0.010942323137648558
+Average WER (PGD):   0.058711463974621854
+
+Dataset: PerspectiveGT-Pairs
+[PerspectiveGT-Pairs] English-only samples: 190
+Samples: 190
+Average CER (clean): 0.012003380583986574
+Average WER (clean): 0.06437763990395566
+Average CER (FGSM):  0.016009341623903692
+Average WER (FGSM):  0.07748277307487833
+Average CER (PGD):   0.017014107656323083
+Average WER (PGD):   0.08138257940889516
+
+Dataset: jpeg_folder
+[jpeg_folder] English-only samples: 190
+Samples: 190
+Average CER (clean): 0.00951004540699576
+Average WER (clean): 0.0525125751441541
+Average CER (FGSM):  0.011421752747423098
+Average WER (FGSM):  0.06660006660006661
+Average CER (PGD):   0.014377417752238246
+Average WER (PGD):   0.08834647808332019
+
+Done. Results saved to: trocr_vit_attention_results

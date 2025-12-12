@@ -3,7 +3,7 @@ import random
 from PIL import ImageFilter
 from cb_dataloader import CampbellDataset
 
-num_images = 5
+
 
 def add_blur(img):
     blurred_image  = img.filter(ImageFilter.GaussianBlur(radius=random.randint(0, 3)))
@@ -13,7 +13,7 @@ def add_blur(img):
 def modify():
     ds = CampbellDataset("Dataset/GT-pairs")
     output_dir = "Dataset/BlurGT-Pairs"
-
+    num_images = len(ds)
     os.makedirs(output_dir, exist_ok = True)
 
     print(f"Total dataset size: {len(ds)}")

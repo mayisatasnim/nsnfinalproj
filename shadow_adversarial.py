@@ -3,9 +3,6 @@ import random
 from PIL import Image, ImageDraw, ImageFilter
 from cb_dataloader import CampbellDataset
 
-
-num_images = 5
-
 def add_shadow (img):
     width, height = img.size
 
@@ -32,6 +29,7 @@ def add_shadow (img):
 def modify():
     ds = CampbellDataset("Dataset/GT-pairs")
     output_dir = "Dataset/ShadowedGT-Pairs"
+    num_images = len(ds) 
 
     os.makedirs(output_dir, exist_ok = True)
 

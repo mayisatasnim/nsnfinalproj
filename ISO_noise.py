@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 from cb_dataloader import CampbellDataset
 
-num_images = 5
+
 noise_intensity = 0.1
 color_noise_factor = 0.5
 
@@ -35,9 +35,10 @@ def add_iso_noise(image, noise_intensity, color_noise_factor):
 def modify():
     dataset_dir = "Dataset/GT-pairs"      
     output_dir = "Dataset/iso_noise_folder"  
-
     # Load dataset
     ds = CampbellDataset(dataset_dir)
+
+    num_images = len(ds)
 
     # Make output directory
     os.makedirs(output_dir, exist_ok=True)
