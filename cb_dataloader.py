@@ -33,7 +33,8 @@ class CampbellDataset(Dataset):
                 text = f.read().strip()
 
 
-            if onlyenglish and not is_english_only(text):
+            if onlyenglish:
+                if not is_english_only(text):
                     continue
 
             self.samples.append(sample_id)
