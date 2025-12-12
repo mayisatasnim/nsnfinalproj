@@ -18,6 +18,7 @@ datasets = [
     "iso_noise_folder",
     "PerspectiveGT-Pairs",
     "jpeg_folder",
+    "ShadowedGT-Pairs"
 ]
 
 model_name = "microsoft/trocr-base-stage1"
