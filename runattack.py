@@ -28,7 +28,7 @@ pgd_iters = 10
 #only for first 5 pics
 NUM_VIS = 5
 
-output_root = "trocr_vit_attention_results"
+output_root = "trocr_vit_attention_results_multilingual"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 

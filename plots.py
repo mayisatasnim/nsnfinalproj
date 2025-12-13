@@ -2,63 +2,73 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 
-# Data from the evaluations
-
+# Example aggregated metrics for English-only vs Multilingual
 datasets = {
-    "GT-pairs": {
-        "CER": [0.010050449783562562, 0.010548854590305272, 0.013785147762568782],
-        "WER": [0.04903968838179363, 0.051255455071244536, 0.07958480116374854],
+    "GT-Pairs": {
+        "English": {"CER": [0.01005, 0.01055, 0.01379], "WER": [0.04904, 0.05126, 0.07958]},
+        "Multilingual": {"CER": [1.19190, 1.19570, 1.19419], "WER": [2.72350, 2.73640, 2.76344]}
     },
     "BlurGT-Pairs": {
-        "CER": [0.01697240816694629, 0.03673525551776237, 0.0457400997135171],
-        "WER": [0.0848285924601714, 0.16871330423962, 0.2348978945031576],
+        "English": {"CER": [0.01697, 0.03674, 0.04574], "WER": [0.08483, 0.16871, 0.23490]},
+        "Multilingual": {"CER": [1.17588, 1.19513, 1.19654], "WER": [2.73668, 2.79610, 2.85065]}
     },
     "iso_noise_folder": {
-        "CER": [0.009457583243376548, 0.011096172427127637, 0.010942323137648558],
-        "WER": [0.050960968855705696, 0.05291331475542, 0.058711463974621854],
+        "English": {"CER": [0.00946, 0.01110, 0.01094], "WER": [0.05096, 0.05291, 0.05871]},
+        "Multilingual": {"CER": [1.18932, 1.18738, 1.19770], "WER": [2.72144, 2.73812, 2.76735]}
     },
     "PerspectiveGT-Pairs": {
-        "CER": [0.012003380583986574, 0.016009341623903692, 0.017014107656323083],
-        "WER": [0.06437763990395566, 0.07748277307487833, 0.08138257940889516],
+        "English": {"CER": [0.01200, 0.01601, 0.01701], "WER": [0.06438, 0.07748, 0.08138]},
+        "Multilingual": {"CER": [1.19408, 1.18780, 1.18667], "WER": [2.77462, 2.78798, 2.81399]}
     },
     "jpeg_folder": {
-        "CER": [0.00951004540699576, 0.011421752747423098, 0.014377417752238246],
-        "WER": [0.0525125751441541, 0.06660006660006661, 0.08834647808332019],
+        "English": {"CER": [0.00951, 0.01142, 0.01438], "WER": [0.05251, 0.06660, 0.08835]},
+        "Multilingual": {"CER": [1.18773, 1.19465, 1.19471], "WER": [2.72185, 2.74601, 2.75721]}
     },
     "ShadowedGT-Pairs": {
-        "CER": [0.00971289078122896, 0.011246542222235778, 0.012880766995248762],
-        "WER": [0.046741767004924904, 0.05535946509630721, 0.06574936028883396],
+        "English": {"CER": [0.00971, 0.01125, 0.01288], "WER": [0.04674, 0.05536, 0.06575]},
+        "Multilingual": {"CER": [1.19193, 1.19942, 1.20072], "WER": [2.73277, 2.75841, 2.76893]}
     },
-}
-
-dataset_name = list(datasets.keys())
-color_map = cm.get_cmap("tab10", len(dataset_name))
-dataset_colors = {
-        name: color_map(i) for i, name in enumerate(dataset_name)
 }
 
 conditions = ["Clean", "FGSM", "PGD"]
-
-# Plotting
+colors = ["#1f77b4", "#ff7f0e"]  # English, Multilingual
+width = 0.35
 
 for dataset_name, metrics in datasets.items():
-    for metric_name, values in metrics.items():
+    x = np.arange(len(conditions))
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    
+    # CER subplot
+    axes[0].bar(x - width/2, metrics["English"]["CER"], width, label="English-only", color=colors[0])
+    axes[0].bar(x + width/2, metrics["Multilingual"]["CER"], width, label="Multilingual", color=colors[1])
+    axes[0].set_xticks(x)
+    axes[0].set_xticklabels(conditions)
+    axes[0].set_title("CER")
+    axes[0].set_ylabel("CER")
+    axes[0].legend()
+    for i in range(len(conditions)):
+        axes[0].text(x[i] - width/2, metrics["English"]["CER"][i] + 0.02*metrics["English"]["CER"][i],
+                     f"{metrics['English']['CER'][i]:.3f}", ha='center', fontsize=9)
+        axes[0].text(x[i] + width/2, metrics["Multilingual"]["CER"][i] + 0.02*metrics["Multilingual"]["CER"][i],
+                     f"{metrics['Multilingual']['CER'][i]:.3f}", ha='center', fontsize=9)
+    
+    # WER subplot
+    axes[1].bar(x - width/2, metrics["English"]["WER"], width, label="English-only", color=colors[0])
+    axes[1].bar(x + width/2, metrics["Multilingual"]["WER"], width, label="Multilingual", color=colors[1])
+    axes[1].set_xticks(x)
+    axes[1].set_xticklabels(conditions)
+    axes[1].set_title("WER")
+    axes[1].set_ylabel("WER")
+    axes[1].legend()
+    for i in range(len(conditions)):
+        axes[1].text(x[i] - width/2, metrics["English"]["WER"][i] + 0.02*metrics["English"]["WER"][i],
+                     f"{metrics['English']['WER'][i]:.3f}", ha='center', fontsize=9)
+        axes[1].text(x[i] + width/2, metrics["Multilingual"]["WER"][i] + 0.02*metrics["Multilingual"]["WER"][i],
+                     f"{metrics['Multilingual']['WER'][i]:.3f}", ha='center', fontsize=9)
+    
+    fig.suptitle(f"{dataset_name} — Baseline Disparity: English vs Multilingual")
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
+    plt.savefig(f"{dataset_name}_CER_WER_disparity.png", dpi=200)
+    plt.close()
 
-        plt.figure(figsize=(8, 5))
-
-        x = np.arange(len(conditions))
-        plt.bar(x, values, color = dataset_colors[dataset_name])
-
-        plt.xticks(x, conditions)
-        plt.title(f"{dataset_name} — {metric_name}")
-        plt.ylabel(metric_name)
-        plt.xlabel("Condition")
-
-        for i, v in enumerate(values):
-            plt.text(i, v + (v * 0.02), f"{v:.4f}", ha='center', fontsize=9)
-
-        plt.tight_layout()
-        plt.savefig(f"{dataset_name}_{metric_name}.png", dpi=200)
-        plt.close()
-
-print("Done! Plots saved as PNG files.")
+print("Done! CER & WER disparity plots saved as PNG files.")
