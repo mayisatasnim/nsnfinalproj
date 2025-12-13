@@ -5,9 +5,7 @@ from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 from cb_dataloader import CampbellDataset
 from metrics import cer, wer
 
-# ===========================
-# Datasets
-# ===========================
+
 datasets = [
     "GT-pairs",
     "BlurGT-Pairs",
@@ -16,9 +14,6 @@ datasets = [
     "jpeg_folder"
 ]
 
-# ===========================
-# Model
-# ===========================
 model_name = "microsoft/trocr-base-stage1"
 processor = TrOCRProcessor.from_pretrained(model_name)
 model = VisionEncoderDecoderModel.from_pretrained(model_name)
@@ -29,13 +24,8 @@ model.eval()
 
 print("Model loaded on device:", device)
 
-# ===========================
-# Evaluation
-# ===========================
 for data in datasets:
-    print("\n==============================")
-    print("Metrics for", data)
-    print("==============================")
+    print("\nMetrics for", data)
 
     dataset_path = os.path.join("Dataset", data)
     dataset = CampbellDataset(dataset_path)
@@ -76,7 +66,6 @@ for data in datasets:
             skip_special_tokens=True
         )[0].strip()
 
-        # ---- Print example pairs (first 4 only) ----
         if printed_examples < max_print:
             print("\n--- Example", printed_examples + 1, "---")
             print("ID:", sample_id)
@@ -84,7 +73,6 @@ for data in datasets:
             print("OCR:", pred_text)
             printed_examples += 1
 
-        # ---- Metrics ----
         total_cer += cer(gt_text, pred_text)
         total_wer += wer(gt_text, pred_text)
         count += 1
